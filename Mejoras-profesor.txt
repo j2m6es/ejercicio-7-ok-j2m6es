@@ -1,0 +1,55 @@
+Hola Jesús, 
+
+El ejercicio funciona perfectamente. Bueno, no, si un alumno todavía no tiene notas salta un error de división por cero cuando intentas calcular la nota media. Pero vaya, nada que no sepas arreglar.
+
+El código está perfectamente organizado y es muy limpio y fácil de leer. Sobre todo en este tema me interesa que la gente se acostumbre a que las consultas a la base de datos se hagan en los repositorios y no lo hagan directamente en el controller. Eso veo que lo tienes muy claro. 
+
+Sin embargo hay cosillas que no sé si no conoces o si es que por ir más rápido no las has hecho como se suelen hacer. Son cosas que las presuponemos ya sabidas en este curso pero que si veo que os puedo comentar algo aprovecho en las correcciones de los ejercicios.
+
+1)     Para consultas simples, los repositorios vienen con varios métodos por defecto.
+
+Por ejemplo, en vez de
+
+$todasasignaturas = $doctrine->getManager()->getRepository("App:Asignatura")->obtenerTodasAsignaturas();
+
+puedes utilizar el método findAll() que viene por defecto
+
+$todasasignaturas = $doctrine->getManager()->getRepository("App:Asignatura")->findAll();
+
+En el vídeo 7.5 cuento cuáles son esos métodos que vienen por defecto en los repositorios
+
+2)     Puedes inyectar directamente los repositorios
+
+En vez de
+
+public function obtener($id, ManagerRegistry $doctrine): Response
+
+    {
+
+        ……..
+
+        $asignaturas = $doctrine->getManager()->getRepository("App:Asignatura")->obtenerAsignaturas($id);
+
+puedes hacer
+
+public function obtener($id, AsignaturaRepository $repository): Response
+
+    {
+
+        ……..
+
+        $asignaturas = $repository->obtenerAsignaturas($id);
+
+3)     Al poner enlaces en el html es mejor usar la función path() de twig con la que puedes hacer referencia al NOMBRE de las rutas. De esta forma, si en algún momento cambias una url, no tienes que revisar el proyecto mientras no hayas cambiado el nombre de la ruta
+
+En vez de:
+
+<a href="/asignaturas/desmatricularse/{{ ID_ALUMNO }}/{{ asig.id }}">(Desmatricurlarse)</a>
+
+Es mejor:
+
+<a href="{{ path(asignatura_desmatricularse', {idAlumno: ID_ALUMNO, idAsignatura: asig.id }) }}">(Desmatricurlarse)</a>
+
+
+
+Eso es todo. Buen trabajo. 

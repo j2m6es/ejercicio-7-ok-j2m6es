@@ -1,0 +1,19 @@
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+notas_obtener:
+    path: /notas/obtener/{id}
+    controller: App\Controller\NotasController::obtener
+
+asignaturas_obtener:
+    path: /asignaturas/obtener/{id}
+    controller: App\Controller\AsignaturasController::obtener
+
+asignatura_matricularse:
+    path: /asignaturas/matricularse/{idAlumno}/{idAsignatura}
+    controller: App\Controller\AsignaturasController::matricularse
+
+asignatura_desmatricularse:
+    path: /asignaturas/desmatricularse/{idAlumno}/{idAsignatura}
+    controller: App\Controller\AsignaturasController::desmatricularse
